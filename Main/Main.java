@@ -1,6 +1,5 @@
 package Main;
 
-
 import Bank.*;
 import Accounts.*;
 import java.util.Scanner;
