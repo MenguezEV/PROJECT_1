@@ -1,5 +1,8 @@
 package Main;
 
+
+import Bank.*;
+import Accounts.*;
 import java.util.Scanner;
 
 public class Main
@@ -30,21 +33,37 @@ public class Main
                 // READ ME: Refer to this code block on how one should properly utilize
                 // showMenuHeader(), showMenu(),
                 // setOption(), and getOption() methods...
+
                 showMenuHeader("Account Login Menu");
                 showMenu(2, 1);
                 setOption();
-                showMenu(getOption(), 1);
+                if (getOption() == 1){
+                    AccountLauncher.accountLogin();
+                }
+                else if (getOption() == 2){
+                    System.out.println("Exiting Bank Login Menu");
+                }
                 // TODO: Complete this portion
             }
             // Bank Option
             else if (getOption() == 2)
             {
-                // TODO: Complete Bank option
+                showMenuHeader("Bank Login Menu");
+                showMenu(3, 1);
+                setOption();
+                if (getOption() == 1){
+                    BankLauncher.bankLogin();
+//                    BankLauncher.bankInit();
+                }
+                else if (getOption() == 2){
+                    System.out.println("Exiting Bank Login Menu");
+                }
             }
             // Create New Bank
             else if (getOption() == 3)
             {
                 // TODO: Complete this portion...
+                BankLauncher.createNewBank();
             }
             else if (getOption() == 4)
             {
