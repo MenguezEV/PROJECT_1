@@ -15,25 +15,9 @@ public class BankLauncher {
     }
 
     public static void bankInit() {
-//        if(isLogged()){
-//            Main.showMenuHeader("Bank Menu");
-//            Main.showMenu(31);
-//            Main.setOption();
-//            switch (Main.getOption()){
-//                case 1:
-//                    showAccounts();
-//                    break;
-//                case 2:
-//                    newAccounts();
-//                    break;
-//                case 3:
-//                    logout();
-//                default:
-//                    System.out.println("Invalid Option. Please try again.");
-//            }
-//        }
+
         while(isLogged()){
-            Main.showMenuHeader("Bank Menu");
+            Main.showMenuHeader(loggedBank.getName());
             Main.showMenu(31);
             Main.setOption();
 
@@ -73,24 +57,6 @@ public class BankLauncher {
                     System.out.println("Invalid input. Please try again.");
             }
         }
-
-//        while (true) {
-//            Main.showMenuHeader("Show Accounts Menu");
-//            Main.showMenu(32);
-//            Main.setOption();
-//
-//            if (Main.getOption() == 1) {
-//                loggedBank.showAccounts(CreditAccount.class);
-//            } else if (Main.getOption() == 2) {
-//                loggedBank.showAccounts(SavingsAccount.class);
-//            } else if (Main.getOption() == 3) {
-//                loggedBank.showAccounts(Account.class);
-//            } else if (Main.getOption() == 4) {
-//                return;
-//            } else {
-//                System.out.println("Invalid input. Please try again.");
-//            }
-//        }
     }
 
     private static void newAccounts() {
@@ -119,6 +85,8 @@ public class BankLauncher {
     }
 
     public static void bankLogin() {
+        showBanksMenu();
+
         Field<String, String> bankNameField = new Field<String, String>("Bank Name",
                 String.class, " ", new Field.StringFieldValidator());
         bankNameField.setFieldValue("Enter bank name: ", false);
@@ -144,7 +112,6 @@ public class BankLauncher {
         else{
             System.out.println("Bank not found. Either invalid bank ID or passcode. Please try again.");
         }
-//        bankInit();
     }
 
     private static void setLogSession(Bank b) {
@@ -156,7 +123,6 @@ public class BankLauncher {
     }
 
     public static void createNewBank() {
-//        Field<Integer,Integer> idField = new Field<Integer, Integer>("ID", Integer.class, -1, new Field.IntegerFieldValidator());
         Field<String,String> nameField = new Field<String, String>("Name", String.class, "", new Field.StringFieldValidator());
         Field<String,Integer> passcodeField = new Field<String, Integer>("Passcode", String.class, 5, new Field.StringFieldLengthValidator());
         Field<Double,Double> depositLimitField = new Field<Double, Double>("Deposit Limit", Double.class, 0.0, new Field.DoubleFieldValidator());
@@ -165,7 +131,6 @@ public class BankLauncher {
         Field<Double,Double> processingFeeField = new Field<Double, Double>("Processing Fee", Double.class, 0.0, new Field.DoubleFieldValidator());
 
         try { //in creating new bank
-//            idField.setFieldValue("Bank ID: ");
             nameField.setFieldValue("Bank Name: ", false);
             passcodeField.setFieldValue("Bank Passcode: ");
             //default amount -refer to bank 
@@ -178,7 +143,6 @@ public class BankLauncher {
             return;
         }
 
-//        int id = idField.getFieldValue();
         String name = nameField.getFieldValue();
         String passcode = passcodeField.getFieldValue();
         double depositLimit = depositLimitField.getFieldValue();
@@ -200,15 +164,14 @@ public class BankLauncher {
     public static void showBanksMenu() {
         System.out.println("List of Registered Banks: ");
         for(int i = 0; i < bankSize(); i++){
-//            System.out.println(banks.get(i).getID() + " - " + banks.get(i).getName());
-            System.out.printf("[%d]. Bank ID No.%d: %s\n", i + 1, banks.get(i).getID(), banks.get(i).getName());
+            System.out.printf("[%d] %s\n",i+1,banks.get(i).toString());
         }
     }
 
     private static void addBank(Bank b) {
         // Check if a bank with the same ID already exists
-        if (getBank(new Bank.BankIdComparator(), b) != null) {
-            System.out.println("A bank with this ID already exists.");
+        if (getBank(new Bank.BankCredentialsComparator(), b) != null) {
+            System.out.println("This bank already exists.");
             return;
         }
         banks.add(b);

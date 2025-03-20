@@ -135,7 +135,6 @@ public class Bank {
      * @param accountType
      */
     public void showAccounts(Class accountType) {
-//        System.out.printf("Showing %ss: \n", accountType.getSimpleName());
 
         for (int i = 0; i < bankAccounts.size(); i++) {
             if (accountType.isInstance(bankAccounts.get(i))) {
@@ -176,27 +175,22 @@ public class Bank {
             Field<String, String> accountNumber = new Field<String, String>("Bank Name",
                     String.class, " ", new Field.StringFieldValidator());
             accountNumber.setFieldValue("Enter account number: ");
-//            String accNumber = accountNumber.getFieldValue();
 
         Field<String, String> accountPIN = new Field<String, String>("Bank Name",
                 String.class, " ", new Field.StringFieldValidator());
         accountPIN.setFieldValue("Enter PIN: ", false);
-//            String pin = accountPIN.getFieldValue();
 
             Field<String, String> ownerFname = new Field<String, String>("Bank Name",
                     String.class, " ", new Field.StringFieldValidator());
             ownerFname.setFieldValue("Enter owner firstname: ", false);
-//            String firstname = ownerFname.getFieldValue();
 
             Field<String, String> ownerLname = new Field<String, String>("Bank Name",
                     String.class, " ", new Field.StringFieldValidator());
             ownerLname.setFieldValue("Enter owner lastname: ", false);
-//            String lastname = ownerLname.getFieldValue();
 
             Field<String, String> ownerEmail = new Field<String, String>("Bank Name",
                     String.class, " ", new Field.StringFieldValidator());
             ownerEmail.setFieldValue("Enter owner email: ", false);
-//            String email = ownerEmail.getFieldValue();
 
 
         return new ArrayList<>(Arrays.asList(
@@ -283,7 +277,7 @@ public class Bank {
      * @return the bank's string representation
      */
     public String toString() {
-        return String.format("Name: %s\n", name);
+        return String.format(name);
     }
 
     public static class BankComparator implements Comparator<Bank> {
@@ -296,7 +290,7 @@ public class Bank {
     public static class BankCredentialsComparator implements Comparator<Bank> {
         @Override
         public int compare(Bank b1, Bank b2) {
-            return (b1.getID() == b2.getID() && b1.getPasscode().equals(b2.getPasscode())) ? 0 : 1;
+            return (b1.getName().equals(b2.getName()) && b1.getPasscode().equals(b2.getPasscode())) ? 0 : 1;
         }
     }
 

@@ -52,7 +52,6 @@ public class Main
                 setOption();
                 if (getOption() == 1){
                     BankLauncher.bankLogin();
-//                    BankLauncher.bankInit();
                 }
                 else if (getOption() == 2){
                     System.out.println("Exiting Bank Login Menu");
@@ -64,11 +63,13 @@ public class Main
                 // TODO: Complete this portion...
                 BankLauncher.createNewBank();
             }
+            //Exit Program
             else if (getOption() == 4)
             {
                 System.out.println("Exiting. Thank you for banking!");
                 break;
             }
+            //Invalid Option
             else
             {
                 System.out.println("Invalid option!");

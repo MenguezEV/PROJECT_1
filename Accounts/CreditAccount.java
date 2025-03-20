@@ -5,9 +5,13 @@ import Bank.Bank;
 public class CreditAccount extends Account implements Payment, Recompense{
     private double loan;
 
-    public CreditAccount(Bank bank, String accountNumber, String ownerFname, String ownerLname, String ownerGmail, String pin) {
-        super(bank, accountNumber, ownerFname, ownerLname, ownerGmail, pin);
+    public CreditAccount(Bank bank, String accountNumber, String pin, String ownerFname, String ownerLname, String ownerGmail) {
+        super(bank, accountNumber, pin, ownerFname, ownerLname, ownerGmail);
         this.loan = 0;
+    }
+
+    public double getLoan(){
+        return loan;
     }
 
     /**
@@ -15,7 +19,7 @@ public class CreditAccount extends Account implements Payment, Recompense{
      * @return A string representation of the current loan amount.
      */
     public String getLoanStatement() {
-        return "Current Loan Amount: " + loan;
+        return "Current Loan Amount: " + getLoan();
     }
 
     /**
@@ -26,7 +30,7 @@ public class CreditAccount extends Account implements Payment, Recompense{
      * @return {@code true} if the adjustment can be credited, {@code false} otherwise.
      */
     private boolean canCredit(double amountAdjustment) {
-        double adjustedAmount = amountAdjustment + loan;
+        double adjustedAmount = amountAdjustment + getLoan();
         if (adjustedAmount > getBank().getCreditLimit() || adjustedAmount < 0) {
             return false;
         }
@@ -67,7 +71,7 @@ public class CreditAccount extends Account implements Payment, Recompense{
         }
 
         SavingsAccount payer = (SavingsAccount) account;
-        boolean payed = payer.withdrawal(amount);
+        boolean payed = payer.cashDeposit(amount);
 
         if (payed) {
             adjustLoanAmount(amount);
@@ -87,7 +91,7 @@ public class CreditAccount extends Account implements Payment, Recompense{
      */
     @Override
     public boolean recompense(double amount) {
-        if (amount > loan) {
+        if (amount > getLoan()) {
             System.out.println("The amount cannot be recompensed due to exceeding the loan amount.");
             return false;
         }

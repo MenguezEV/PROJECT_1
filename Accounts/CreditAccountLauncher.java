@@ -8,7 +8,7 @@ public class CreditAccountLauncher extends AccountLauncher {
     public static void creditAccountInit() {
 
         while(true){
-            Main.showMenuHeader("Credit Account Main Menu");
+            Main.showMenuHeader(String.format("%s Credit Account No.%s", getLoggedAccount().getBank(),getLoggedAccount().getAccountNumber()));
             Main.showMenu(41);
             Main.setOption();
 
@@ -23,7 +23,7 @@ public class CreditAccountLauncher extends AccountLauncher {
                 creditRecompenseProcess();
             }
             else if (Main.getOption() == 4){
-                System.out.println("<-----Transactions----->");
+                Main.showMenuHeader("Transactions");
                 String transaction_log = getLoggedAccount().getTransactionsInfo();
                 System.out.println(transaction_log);
             }
@@ -34,30 +34,6 @@ public class CreditAccountLauncher extends AccountLauncher {
                 System.out.println("Invalid choice. Please enter a valid option.");
             }
         }
-//        Main.showMenuHeader("Credit Account Main Menu");
-//        Main.showMenu(41);
-//        Main.setOption();
-//        switch(Main.getOption()){
-//            case 1:
-//                //show credits
-//                String loan_statement = getLoggedAccount().getLoanStatement();
-//                System.out.println(loan_statement);
-//                break;
-//            case 2:
-//                creditPaymentProcess();
-//                break;
-//            case 3:
-//                creditRecompenseProcess();
-//                break;
-//            case 4:
-//                //Show Transactions
-//                getLoggedAccount().getTransactionInfo();
-//                break;
-//            case 5:
-//                break;
-//            default:
-//                System.out.println("Invalid choice. Please enter a valid option.");
-//        }
     }
 
     private static void creditPaymentProcess() {

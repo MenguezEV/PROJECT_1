@@ -9,7 +9,7 @@ public class SavingsAccountLauncher extends AccountLauncher {
     public static void savingsAccountInit(){
 
         while(true){
-            Main.showMenuHeader("Savings Account Main Menu");
+            Main.showMenuHeader(String.format("%s Savings Account No.%s", getLoggedAccount().getBank(),getLoggedAccount().getAccountNumber()));
             Main.showMenu(51);
             Main.setOption();
 
@@ -26,7 +26,7 @@ public class SavingsAccountLauncher extends AccountLauncher {
             else if (Main.getOption() == 4){
                 fundTransferProcess();
             } else if (Main.getOption() == 5) {
-                System.out.println("<-----Transactions----->");
+                Main.showMenuHeader("Transactions");
                 String transaction_log = getLoggedAccount().getTransactionsInfo();
                 System.out.println(transaction_log);
             }
@@ -71,22 +71,21 @@ public class SavingsAccountLauncher extends AccountLauncher {
 
     // Method for the fund transfer process
     private static void fundTransferProcess(){
-        Field<Integer, Integer> bankID = new Field<Integer,Integer>("ID", Integer.class, -1, new Field.IntegerFieldValidator());
+        BankLauncher.showBanksMenu();
         Field<String, String> bankName = new Field<String,String>("Name", String.class, "", new Field.StringFieldValidator());
-        bankID.setFieldValue("Enter bank id: ");
         bankName.setFieldValue("Enter bank name: ");
 
         Bank target_bank = null;
 
         for (Bank bank : BankLauncher.banks) {
-            if (bank.getID() == bankID.getFieldValue() && bank.getName().equals(bankName.getFieldValue())) {
+            if (bank.getName().equals(bankName.getFieldValue())) {
                 System.out.println("Bank selected: " + bankName.getFieldValue());
                 target_bank = bank;
             }
         }
 
         if (target_bank == null) {
-            System.out.println("Invalid bank id or name.");
+            System.out.println("This bank does not exist");
             return;
         }
 
@@ -105,7 +104,8 @@ public class SavingsAccountLauncher extends AccountLauncher {
             return;
         }
 
-        if (getLoggedAccount().getBank().getID() == target_bank.getID()) {
+        Bank.BankComparator comparator = new Bank.BankComparator();
+        if (comparator.compare(getLoggedAccount().getBank(), target_bank) == 0) {
             try {
                 boolean transferSuccess = getLoggedAccount().transfer(targetAccount, amountField.getFieldValue());
                 if (transferSuccess) {

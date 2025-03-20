@@ -58,9 +58,7 @@ public class AccountLauncher {
     // Bank selectBank
     private static Bank selectBank() {
         BankLauncher.showBanksMenu();
-//        Field<Integer, Integer> bankID = new Field<Integer,Integer>("ID", Integer.class, -1, new Field.IntegerFieldValidator());
         Field<String, String> bankName = new Field<String,String>("Name", String.class, "", new Field.StringFieldValidator());
-//        bankID.setFieldValue("Enter bank id: ");
         bankName.setFieldValue("Enter bank name: ");
 
         for (Bank bank : BankLauncher.banks) {

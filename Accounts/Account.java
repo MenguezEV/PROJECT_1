@@ -17,7 +17,7 @@ public abstract class Account  {
      */
     private ArrayList<Transaction> Transactions;
 
-    public Account(Bank bank, String AccountNumber, String ownerFName, String ownerLName, String ownerEmail, String pin) {
+    public Account(Bank bank, String AccountNumber, String pin, String ownerFName, String ownerLName, String ownerEmail) {
         this.bank = bank;
         this.AccountNumber = AccountNumber;
         this.ownerFName = ownerFName;
@@ -124,14 +124,6 @@ public abstract class Account  {
         return ownerFName + " " + ownerLName;
     }
 
-//    /**
-//     * Retrieves the list of transactions associated with this account.
-//     *
-//     * @return ArrayList of Transaction objects representing the transactions of this account.
-//     */
-//    public ArrayList<Transaction> getTransactions(){
-//        return Transactions;
-//    }
 
     /**
      * Create a Transaction and put it in the Transactions for recording
@@ -148,13 +140,11 @@ public abstract class Account  {
      * Shows every transaction this account have
      * @return A string of all the transaction this account have
      */
-    public String getTransactionInfo(){
+    public String getTransactionsInfo(){
         if (Transactions.isEmpty()) return "No transactions";
-
-        String s = "===Transactions===\n";
+        String s = "";
         for(int i = 0; i<Transactions.size(); i++){
-//            s += Transactions.get(i).description + "\n";
-            s += String.format("[%d]. %s\n", i+1, Transactions.get(i).description);
+            s += String.format("[%d] %s\n", i+1, Transactions.get(i).description);
         }
         return s;
     }
