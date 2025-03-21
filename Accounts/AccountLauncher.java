@@ -59,7 +59,7 @@ public class AccountLauncher {
     private static Bank selectBank() {
         BankLauncher.showBanksMenu();
         Field<String, String> bankName = new Field<String,String>("Name", String.class, "", new Field.StringFieldValidator());
-        bankName.setFieldValue("Enter bank name: ");
+        bankName.setFieldValue("Enter bank name: ", false);
 
         for (Bank bank : BankLauncher.banks) {
             if (bank.getName().equals(bankName.getFieldValue())) {

@@ -73,7 +73,7 @@ public class SavingsAccountLauncher extends AccountLauncher {
     private static void fundTransferProcess(){
         BankLauncher.showBanksMenu();
         Field<String, String> bankName = new Field<String,String>("Name", String.class, "", new Field.StringFieldValidator());
-        bankName.setFieldValue("Enter bank name: ");
+        bankName.setFieldValue("Enter bank name: ", false);
 
         Bank target_bank = null;
 
